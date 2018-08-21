@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+
+  mysql:
+    image: mysql:5.6
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    ports:
+      - "3306:3306"
+    environment:
+      - DB_PORT=3306
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+    volumes:
+      - ./db/mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8090:80"
+    environment:
+      - PMA_HOST=mysql
+    depends_on:
+      - mysql
+
+  workspace:
+    image: nagisa0129/centos69-php56-apache22
+    build: ./
+    volumes:
+      - /Users/nagisa.ito/MyProject/MyApp:/var/www/html
+    ports:
+      - "8080:80"
+    links:
+      - mysql
+    tty: true
+
+#  mailhog:
+#    image: mailhog/mailhog
+#    ports:
+# - "8025:8025"
+# - "1025:1025"
