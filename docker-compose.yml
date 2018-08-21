@@ -11,8 +11,7 @@ services:
       - DB_PORT=3306
       - DB_CONNECTION=mysql
       - DB_HOST=mysql
-      - DB_USERNAME=root
-      - DB_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=root
     volumes:
       - ./db/mysql_data:/var/lib/mysql
 
@@ -26,16 +25,17 @@ services:
       - mysql
 
   workspace:
-    image: nagisa0129/centos69-php56-apache22
+    image: workspace
     build: ./
     volumes:
-      - /Users/nagisa.ito/MyProject/MyApp:/var/www/html
+      - ./workspace:/var/www/html
     ports:
       - "8080:80"
     links:
       - mysql
     tty: true
 
+# ローカルでメールサーバーを使いたいときには以下のコメントアウトを外す
 #  mailhog:
 #    image: mailhog/mailhog
 #    ports:

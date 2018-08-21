@@ -7,7 +7,6 @@ FROM centos:centos6.9
 
 #System Update & Install packages
 RUN yum -y update
-RUN yum -y install httpd
 
 RUN yum install -y epel-release
 RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
@@ -44,8 +43,6 @@ RUN echo '/etc/init.d/httpd start' >> /root/init.sh
 RUN echo 'date > /var/log/date.log' >> /root/init.sh
 RUN echo 'tail -f /dev/null' >> /root/init.sh
 RUN chmod +x /root/init.sh
-
-
 
 EXPOSE 22
 EXPOSE 80
