@@ -11,11 +11,17 @@ RUN yum -y update
 RUN yum install -y epel-release
 RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 RUN yum install -y --enablerepo=remi,remi-php56 php php-devel php-mbstring php-pdo php-mysql php-gd php-xml php-intl php-xml php-xmlrpc php-soap php-pecl-apc php-odbc
+
 # add postgres
 RUN yum -y --enablerepo=remi-php56 install php-pdo php-pgsql
 RUN sed -ri 's/;date.timezone =/date.timezone = Asia\/Tokyo/g' /etc/php.ini
 RUN sed -ri 's/display_errors = Off/display_errors = On/g' /etc/php.ini
 RUN sed -ri 's/;error_log = php_errors.log/error_log = \/var\/log\/php_errors.log/g' /etc/php.ini
+
+# node.js and npm
+RUN curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
+RUN yum install -y gcc-c++ make
+RUN yum install -y nodejs
 
 # SSHD
 RUN yum install -y openssh-server
