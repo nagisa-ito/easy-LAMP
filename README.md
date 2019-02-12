@@ -8,3 +8,16 @@
 - PHP 5.6
 - MySQL 5.6
 - apache 2.2.15
+
+### 構築方法
+#### Dockerインストール
+https://docs.docker.com/docker-for-mac/
+#### Docker Composeインストール
+http://docs.docker.jp/compose/install.html
+#### クローン & コンテナ作成
+```
+$ git clone https://github.com/nagisa-ito/easy-LAMP.git
+$ cd easy-LAMP
+$ docker-compose build
+$ docker-compose up -d
+```
